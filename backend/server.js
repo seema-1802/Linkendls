@@ -80,6 +80,8 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use('/post', postRoutes);
 app.use('/',userRouter);
 
+
+
   app.listen(app.get("port"), () => {
     console.log(`Server running on port ${app.get("port")}`);
 connectDB();
