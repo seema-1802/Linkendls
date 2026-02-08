@@ -1,0 +1,107 @@
+.nav {
+  height: 60px;
+   width: 100% ;/* full viewport width */
+  max-width: 100%; 
+  padding: 0 24px;
+  background-color: #0a66c2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+   box-sizing: border-box; 
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* Right side container */
+.rightBox {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+}
+
+.logoutBtn {
+  padding: 6px 14px;
+  background-color: #fff;
+  color: #0a66c2;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.bePart {
+  padding: 8px 16px;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+}
+.profileName {
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.profileName:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  text-decoration: underline;
+}
+
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .nav {
+    padding: 0 16px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .rightBox {
+    gap: 10px;
+  }
+
+  .profile span {
+    display: inline; 
+  }
+
+  .logoutBtn, .bePart {
+    padding: 4px 10px;
+    font-size: 14px;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+  }
+}

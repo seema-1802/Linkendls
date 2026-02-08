@@ -1,0 +1,139 @@
+.page {
+  min-height: 100vh;
+  background: #f3f2ef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    padding: 20px;
+}
+
+/* MAIN CARD */
+.card {
+  width: 900px;
+  height: 520px;
+  background: white;
+  display: flex;
+  border-radius: 14px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+/* LEFT SIDE */
+.left {
+  flex: 1;
+  padding: 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.left h1 {
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+/* INPUTS */
+.input {
+  margin-bottom: 15px;
+  padding: 13px 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0a66c2;
+}
+
+/* BUTTON */
+.button {
+  margin-top: 10px;
+  padding: 13px;
+  background: #0a66c2;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #004182;
+}
+
+/* RIGHT SIDE */
+.right {
+  flex: 1;
+  background: linear-gradient(135deg, #0a66c2, #004182);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.right h2 {
+  font-size: 34px;
+  margin-bottom: 12px;
+}
+
+.right p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+/* ---------------- RESPONSIVE ---------------- */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .card {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+  }
+
+  .right {
+    order: -1;
+    padding: 30px 20px;
+  }
+
+  .left {
+    padding: 30px 20px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .card {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  .left,
+  .right {
+    padding: 24px 16px;
+  }
+
+  .input {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .button {
+    padding: 10px;
+    font-size: 14px;
+  }
+}

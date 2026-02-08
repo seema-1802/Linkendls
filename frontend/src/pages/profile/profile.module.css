@@ -1,0 +1,131 @@
+/* ------------------- Desktop layout ------------------- */
+.profileTop {
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+}
+
+/* Left image */
+.avatarWrapper {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.editIcon {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: #0a66c2;
+  color: #fff;
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Right info column */
+.basicInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  gap: 6px;
+}
+
+/* Name + Email row */
+.basicInfoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Name + Email stacked */
+.basicInfoColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Work section beside Name */
+.workColumn {
+  flex: 1;
+}
+
+/* Buttons */
+.editBtn, .saveBtn, .cancelBtn {
+  margin-top: 8px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  
+}
+
+.editBtn {
+  background: #0a66c2;
+  color: #fff;
+  border: none;
+   max-width: 500px;
+}
+
+.editBtn:hover { background: #004182; }
+
+.saveBtn { background: #0a66c2; color: #fff; border: none; }
+.saveBtn:hover { background: #004182; }
+.cancelBtn { background: #ccc; color: #333; border: none; }
+.cancelBtn:hover { background: #999; }
+
+/* Work cards */
+.workCard {
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: #f9f9f9;
+   max-width: 700px;
+}
+
+.workDetails p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+/* Activity full width */
+.activitySection {
+  margin-top: 30px;
+}
+
+/* ------------------- Mobile layout ------------------- */
+@media (max-width: 768px) {
+  .profileTop {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .basicInfoRow {
+    flex-direction: column;
+  }
+
+  .basicInfoColumn, .workColumn {
+    width: 100%;
+  }
+
+  .workCard {
+    text-align: center;
+  }
+}
