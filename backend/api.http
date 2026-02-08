@@ -1,0 +1,23 @@
+### 🟢 Register New User
+POST http://localhost:8080/signup HTTP/1.1
+Content-Type: application/json
+
+{
+  "Name": "Seema Thakor",
+  "Email": "seema@example.com",
+  "Password": "MyStrongPassword123"
+}
+
+
+
+#  GET http://localhost:8080/getUserProfile/68b301f96bc65084c0bf0d3f  HTTP/1.1
+
+POST http://localhost:8080/userUpdate HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": "68b2d8ca4ce7914f4e087ff5",
+  "Name": "Jane Doe Updated",
+  "Email": "jane.updated@example.com",
+  "Password": "NewPass123"
+}
