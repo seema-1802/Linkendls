@@ -34,7 +34,13 @@ app.set("mongo_user",process.env.MONGO_URL);
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://linkendls.vercel.app"
+  ],
+  credentials: true
+}));
 
 // Session config (before routes)
 app.use(session({
