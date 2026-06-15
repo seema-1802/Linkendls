@@ -35,10 +35,17 @@ app.set("mongo_user",process.env.MONGO_URL);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://linkendls.vercel.app"
-  ],
+  origin: function(origin, callback) {
+    if (
+      !origin ||
+      origin.includes("vercel.app") ||
+      origin === "http://localhost:3000"
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
 
