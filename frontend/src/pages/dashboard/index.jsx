@@ -70,7 +70,17 @@ const fetchComments = async (postId) => {
   }
 };
 
+useEffect(() => {
+  const auth = localStorage.getItem("auth");
 
+  console.log("AUTH STORAGE:", auth);
+
+  if (auth) {
+    const parsed = JSON.parse(auth);
+    console.log("PARSED AUTH:", parsed);
+    console.log("USER ID:", parsed?.user?._id);
+  }
+}, []);
   // 🔐 AUTH + LOAD DATA
   useEffect(() => {
      console.log("DASHBOARD MOUNT");
