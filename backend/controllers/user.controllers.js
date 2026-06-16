@@ -9,7 +9,7 @@ import fs from "fs";
 import path from "path";
 import fetch from "node-fetch";
 
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
   export const googleLogin = async (req, res) => {
   try {
