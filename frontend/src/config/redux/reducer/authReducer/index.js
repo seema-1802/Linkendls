@@ -3,7 +3,7 @@ import { loginUser,registerUser,getUserProfile ,getAllUsers} from "../../action/
 import{ sendConnectionRequest,
   getMyConnectedRequests,
   getMyAcceptedConnections,
-  respondConnection,updateUserProfile,updateProfileData}from "../../action/authAction"; 
+  respondConnection,updateUserProfile,updateProfileData,googleLoginUser}from "../../action/authAction"; 
 
 const authFromStorage =
   typeof window !== "undefined"
@@ -221,6 +221,31 @@ builder
     state.loading = false;
     state.error = action.payload;
   });
+  //goolge login 
+  builder
+  .addCase(googleLoginUser.pending, (state) => {
+  state.loading = true;
+  state.error = null;
+})
+
+.addCase(googleLoginUser.fulfilled, (state, action) => {
+  state.loading = false;
+  state.user = action.payload.user || action.payload;
+  state.isAuthenticated = true;
+
+  localStorage.setItem(
+    "auth",
+    JSON.stringify({
+      isAuthenticated: true,
+      user: state.user,
+    })
+  );
+})
+
+.addCase(googleLoginUser.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+})
 
 // ✅ RESPOND TO CONNECTION
 builder

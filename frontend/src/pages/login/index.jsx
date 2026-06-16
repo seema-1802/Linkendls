@@ -4,9 +4,11 @@ import { useRouter } from "next/router";
 import Index from "@/layout/UserLayout";
 import styles from "./login.module.css";
 
-import { loginUser, registerUser } from "@/config/redux/action/authAction";
+import { loginUser, registerUser,googleLoginUser } from "@/config/redux/action/authAction";
 import { clearMessages } from "@/config/redux/reducer/authReducer";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
+import { auth } from "../../config/firebase";
 export default function AuthPage() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -37,6 +39,24 @@ export default function AuthPage() {
   };
 
  
+
+const handleGoogleLogin = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+
+    const result = await signInWithPopup(auth, provider);
+
+    await dispatch(
+      googleLoginUser({
+        email: result.user.email,
+        name: result.user.displayName,
+        googleId: result.user.uid,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 const handleLogin = () => {
   dispatch(loginUser({
     Email: formData.Email,
@@ -113,7 +133,9 @@ const handleLogin = () => {
                 : "Don't have an account? Sign Up"}
             </p>
           </div>
-
+<button onClick={handleGoogleLogin}>
+  Continue with Google
+</button>
           <div className={styles.right}>
             <h2>Welcome!</h2>
             <p>{isSignup ? "Create your account" : "Login to continue"}</p>

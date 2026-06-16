@@ -199,3 +199,25 @@ export const updateProfileData = createAsyncThunk(
     }
   }
 );
+export const googleLoginUser = createAsyncThunk(
+  "auth/googleLoginUser",
+  async (data, thunkAPI) => {
+    try {
+      const response = await clientServer.post("/google-login", data);
+
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Google Login Successful!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Google Login Failed"
+      );
+    }
+  }
+);
