@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import Index from "@/layout/UserLayout";
 import styles from "./login.module.css";
-
+import { getAllUsers } from "@/config/redux/action/authAction";
 import { loginUser, registerUser,googleLoginUser } from "@/config/redux/action/authAction";
 import { clearMessages } from "@/config/redux/reducer/authReducer";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -14,7 +14,8 @@ export default function AuthPage() {
   const router = useRouter();
   const authState = useSelector((state) => state.auth);
   
-  const { isAuthenticated, loading, error, success } = useSelector(
+  const { isAuthenticated, loading, error, success , usersLoading,
+  profileLoading} = useSelector(
     (state) => state.auth
   );
   const [isSignup, setIsSignup] = useState(false);
@@ -23,10 +24,17 @@ export default function AuthPage() {
     Email: "",
     Password: "",
   });
+const { users } = useSelector((state) => state.auth);
 
+useEffect(() => {
+  if (!users?.length) {
+    dispatch(getAllUsers());
+  }
+}, [dispatch, users]);
   // Redirect to dashboard after login/signup
   useEffect(() => {
     if (isAuthenticated) {
+       console.log("PUSH DASHBOARD");
       router.push("/dashboard");
     }
   }, [isAuthenticated, router]);

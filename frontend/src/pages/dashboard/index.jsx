@@ -5,6 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaThumbsUp, FaCommentAlt, FaShare } from "react-icons/fa";
 import {clientServer, BACKEND_URL } from '@/config';
+import Swal from "sweetalert2";
 import {
   getAllPostsAction,
   createPostAction,deletePostAction,toggleLikePostAction,createCommentAction 
@@ -72,6 +73,7 @@ const fetchComments = async (postId) => {
 
   // 🔐 AUTH + LOAD DATA
   useEffect(() => {
+     console.log("DASHBOARD MOUNT");
     const auth = localStorage.getItem("auth");
     if (!auth) {
       router.replace("/login");
@@ -82,6 +84,7 @@ const fetchComments = async (postId) => {
     const userId = parsedAuth?.user?._id || parsedAuth?.user?.id;
 
     if (!userId) {
+        console.log("REDIRECT LOGIN");
       router.replace("/login");
       return;
     }
