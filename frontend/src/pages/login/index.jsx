@@ -121,6 +121,12 @@ const handleLogin = () => {
             {error && <p style={{ color: "red" }}>{error}</p>}
             
   {success && <p style={{ color: "green" }}>{success}</p>}
+  <button
+  type="button"
+  onClick={handleGoogleLogin}
+>
+  Continue with Google
+</button>
             <p
               style={{ marginTop: "10px", cursor: "pointer", color: "blue" }}
               onClick={() =>
@@ -133,9 +139,7 @@ const handleLogin = () => {
                 : "Don't have an account? Sign Up"}
             </p>
           </div>
-<button onClick={handleGoogleLogin}>
-  Continue with Google
-</button>
+
           <div className={styles.right}>
             <h2>Welcome!</h2>
             <p>{isSignup ? "Create your account" : "Login to continue"}</p>
