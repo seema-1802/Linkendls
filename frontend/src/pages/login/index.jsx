@@ -35,7 +35,7 @@ useEffect(() => {
   useEffect(() => {
     if (isAuthenticated) {
        console.log("PUSH DASHBOARD");
-      router.push("/dashboard");
+       router.replace("/dashboard");
     }
   }, [isAuthenticated, router]);
 
