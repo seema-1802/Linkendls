@@ -32,12 +32,15 @@ useEffect(() => {
   }
 }, [dispatch, users]);
   // Redirect to dashboard after login/signup
-  useEffect(() => {
-  if (isAuthenticated) {
+  console.log("isAuthenticated =", isAuthenticated);
+useEffect(() => {
+  console.log("Auth changed:", isAuthenticated);
+
+  if (isAuthenticated === true) {
     console.log("Redirecting...");
     router.replace("/dashboard");
   }
-}, [isAuthenticated]);
+}, [isAuthenticated, router]);
   const handleChange = (e) => {
     setFormData({
       ...formData,
