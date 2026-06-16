@@ -1,14 +1,25 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { clientServer } from "@/config";
-
+import Swal from "sweetalert2";
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, thunkAPI) => {
     try {
       const response = await clientServer.post("/login", userData);
-      
+        Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Login successful!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       return response.data;
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response?.data?.error || "Login failed",
+      });
       return thunkAPI.rejectWithValue(
         error.response?.data?.error || "Login failed"
       );
@@ -21,8 +32,21 @@ export const registerUser = createAsyncThunk(
     async (userData, thunkAPI) => {
       try {
         const response = await clientServer.post("/signup", userData);
+        Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: "Registration successful!",
+    timer: 1500,
+    showConfirmButton: false,
+  });
+
         return response.data;
       } catch (error) {
+         Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: error.response?.data?.error || "Registration failed",
+  });
         return thunkAPI.rejectWithValue(
           error.response?.data?.error || "Registration failed"
         );
@@ -34,6 +58,7 @@ export const getUserProfile = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await clientServer.get(`/getUserProfile/${id}`);
+     
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -127,8 +152,20 @@ export const updateUserProfile = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const res = await clientServer.post("/userUpdate", formData);
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Profile updated successfully!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       return res.data.user;
     } catch (err) {
+       Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: err.response?.data?.error || "Profile update failed",
+      });
       return thunkAPI.rejectWithValue(
         err.response?.data?.error || "Profile update failed"
       );
@@ -141,8 +178,21 @@ export const updateProfileData = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const res = await clientServer.post("/updateProfileData", data);
+       Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Profile data updated successfully!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       return res.data.profile;
     } catch (err) {
+            Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: err.response?.data?.error || "Profile data update failed",
+      });
+
       return thunkAPI.rejectWithValue(
         err.response?.data?.error || "Profile data update failed"
       );

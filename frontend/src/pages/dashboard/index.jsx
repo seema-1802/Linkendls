@@ -158,19 +158,26 @@ if (!userId) {
 };
 
 
-const handleSendComment = (postId) => {
+const handleSendComment = async(postId) => {
   const auth = JSON.parse(localStorage.getItem("auth"));
   const userId = auth?.user?._id || auth?.user?.id;
 
   if (!commentText.trim()) return;
 
-  dispatch(
+  await dispatch(
     createCommentAction({
       postId,
       userId,
       body: commentText,
     })
   );
+   Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: "Comment added successfully!",
+    timer: 1500,
+    showConfirmButton: false,
+  });
 
   setCommentText("");
 };

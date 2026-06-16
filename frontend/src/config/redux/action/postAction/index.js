@@ -93,7 +93,7 @@ export const toggleLikePostAction = createAsyncThunk(
 
 export const createCommentAction = createAsyncThunk(
   "post/createComment",
-  async ({ postId, userId, body }, thunkAPI) => {
+    async ({ postId, userId, body }, thunkAPI) => {
     try {
       const response = await clientServer.post("/post/createComment", {
         postId,
