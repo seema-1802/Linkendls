@@ -77,9 +77,12 @@ const handleLogin = () => {
 
   return (
     <Index>
+      <h1>seema</h1>
       <div className={styles.page}>
+        <h1>seema</h1>
         <div className={styles.card}>
           <div className={styles.left}>
+            <h1>seema</h1>
             <h1>{isSignup ? "Sign Up" : "Login"}</h1>
 
             {isSignup && (
@@ -117,7 +120,7 @@ const handleLogin = () => {
             >
               {loading ? "Loading..." : isSignup ? "Sign Up" : "Login"}
             </button>
-<h1>seema</h1>
+
             {error && <p style={{ color: "red" }}>{error}</p>}
             
   {success && <p style={{ color: "green" }}>{success}</p>}
