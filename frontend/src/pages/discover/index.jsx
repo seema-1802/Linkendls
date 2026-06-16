@@ -8,7 +8,7 @@ import {  BACKEND_URL } from '@/config';
 function Discover() {
     const dispatch = useDispatch();
       const router = useRouter();
-  const { users, loading, error } = useSelector((state) => state.auth);
+  const { users, loading, error, usersLoading, } = useSelector((state) => state.auth);
 
 
 const [isDesktop, setIsDesktop] = React.useState(false);
@@ -30,7 +30,7 @@ useEffect(() => {
 
 
 
-  if (loading) return <p>Loading users...</p>;
+  if (usersLoading) return <p>Loading users...</p>;
   if (error) return <p>Error: {error}</p>;
   return (
      <Index>

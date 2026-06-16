@@ -14,6 +14,8 @@ const initialState = {
   user: authFromStorage?.user || null,
   isAuthenticated: authFromStorage?.isAuthenticated || false,
   loading: false,
+   usersLoading: false,     // all users
+     
    profile: null,
    users: [], 
     connections: [],          // accepted connections
@@ -53,7 +55,7 @@ const authSlice = createSlice({
   state.isAuthenticated = true;
   state.success = action.payload.message || "Logged in successfully";
 
-  // ✅ Save to localStorage correctly
+  //  Save to localStorage correctly
   localStorage.setItem(
     "auth",
     JSON.stringify({ isAuthenticated: true, user: state.user })
@@ -161,17 +163,16 @@ const authSlice = createSlice({
 
 builder
   .addCase(getAllUsers.pending, (state) => {
-    state.loading = true;
-    state.error = null;
-  })
-  .addCase(getAllUsers.fulfilled, (state, action) => {
-    state.loading = false;
-    state.users = action.payload; // store all users
-  })
-  .addCase(getAllUsers.rejected, (state, action) => {
-    state.loading = false;
-    state.error = action.payload;
-  });
+  state.usersLoading = true;
+})
+.addCase(getAllUsers.fulfilled, (state, action) => {
+  state.usersLoading = false;
+  state.users = action.payload;
+})
+.addCase(getAllUsers.rejected, (state, action) => {
+  state.usersLoading = false;
+  state.error = action.payload;
+})
 
   
 // 🔗 SEND CONNECTION REQUEST
