@@ -19,6 +19,7 @@ import DashboardContent from "@/dashbord";
 
 
 export default function Dashboard() {
+  console.log("LOGIN PAGE RENDER");
   const router = useRouter();
   const dispatch = useDispatch();
     
@@ -69,7 +70,9 @@ const fetchComments = async (postId) => {
     console.error("Error fetching comments", err);
   }
 };
-
+useEffect(() => {
+  console.log("LOGIN PAGE MOUNT");
+}, []);
 useEffect(() => {
   const auth = localStorage.getItem("auth");
 
