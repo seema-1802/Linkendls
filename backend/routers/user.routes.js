@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import {registerUser,login,uploadProfileImage,updateUserProfile,getUserWithProfile, getAllUserProfile,generateResume,updateProfileData, sendConnectedRequest, getMyConnectedRequests,  getMyAcceptedConnections, respondConnection,getUserByName } from "../controllers/user.controllers.js"
+import {registerUser,login,uploadProfileImage,updateUserProfile,getUserWithProfile, getAllUserProfile,generateResume,updateProfileData, sendConnectedRequest, getMyConnectedRequests,  getMyAcceptedConnections, respondConnection,getUserByName,googleLogin } from "../controllers/user.controllers.js"
 import multer from 'multer';
 
 
@@ -31,7 +31,7 @@ router.route("/login").post(login);
   });
 });
 
-  
+ router.post("/google-login", googleLogin); 
 // ✅ Update user profile (with multer)
 router.post("/userUpdate", upload.single("profileImage"), updateUserProfile);
 router.post("/updateProfileData", updateProfileData);

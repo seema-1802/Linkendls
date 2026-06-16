@@ -30,7 +30,14 @@ const userSchema = new Schema({
     return "";
   }
 },
+googleId: {
+  type: String,
+},
 
+authProvider: {
+  type: String,
+  default: "local",
+},
   CreatedAt: {
     type: Date,
     default: Date.now,

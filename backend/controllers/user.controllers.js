@@ -9,7 +9,46 @@ import fs from "fs";
 import path from "path";
 import fetch from "node-fetch";
 
+const jwt = require("jsonwebtoken");
 
+  export const googleLogin = async (req, res) => {
+  try {
+    const { email, name, googleId } = req.body;
+
+    let user = await User.findOne({
+      Email: email,
+    });
+
+    if (!user) {
+      user = await User.create({
+        Name: name,
+        Email: email,
+        googleId,
+        authProvider: "google",
+      });
+    }
+
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    return res.status(200).json({
+      success: true,
+      token,
+      user,
+      message: "Google Login Successful",
+    });
+  } catch (error) {
+    console.log("Google Login Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
 export const  registerUser=async(req,res)=>{
   
      const{Name,Email,Password}=req.body
