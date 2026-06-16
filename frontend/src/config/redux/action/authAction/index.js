@@ -161,6 +161,9 @@ export const updateUserProfile = createAsyncThunk(
       });
       return res.data.user;
     } catch (err) {
+
+  console.log("FULL ERROR:", err.response?.data);
+
        Swal.fire({
         icon: "error",
         title: "Error",
