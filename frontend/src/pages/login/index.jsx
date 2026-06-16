@@ -45,7 +45,7 @@ const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
 
     const result = await signInWithPopup(auth, provider);
-
+    console.log("GOOGLE USER:", result.user);
     await dispatch(
       googleLoginUser({
         email: result.user.email,
@@ -76,6 +76,7 @@ const handleLogin = () => {
   };
 
   return (
+    <>
     <Index>
       <h1>seema</h1>
       <div className={styles.page}>
@@ -150,5 +151,7 @@ const handleLogin = () => {
         </div>
       </div>
     </Index>
+     </>
   );
+ 
 }

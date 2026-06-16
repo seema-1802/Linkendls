@@ -37,7 +37,7 @@ const handleLogout = () => {
       </Link>
 
       {/* RIGHT */}
-      {isAuthenticated && user ? (
+      {isAuthenticated  ? (
         <div className={styles.rightBox}>
           {/* PROFILE */}
           <Link href="/profile" className={styles.profile}>

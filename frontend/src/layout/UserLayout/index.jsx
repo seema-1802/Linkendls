@@ -15,4 +15,3 @@ function Index({ children }) {
 }
 
 export default Index;
-// https://github.com/seema-1802/Linkendls.git
