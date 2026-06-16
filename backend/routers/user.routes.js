@@ -2,7 +2,11 @@ import { Router } from "express";
 
 import {registerUser,login,uploadProfileImage,updateUserProfile,getUserWithProfile, getAllUserProfile,generateResume,updateProfileData, sendConnectedRequest, getMyConnectedRequests,  getMyAcceptedConnections, respondConnection,getUserByName,googleLogin } from "../controllers/user.controllers.js"
 import multer from 'multer';
+import fs from "fs";
 
+if (!fs.existsSync("uploads")) {
+  fs.mkdirSync("uploads", { recursive: true });
+}
 
 const router =Router();
 

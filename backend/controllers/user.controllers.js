@@ -157,15 +157,21 @@ export const uploadProfileImage = async (req, res) => {
       user: updatedUser,
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error" });
+   console.error("UPDATE USER PROFILE ERROR:", error);
+
+  res.status(500).json({
+    error: error.message,
+    stack: error.stack,
+  });  
   }
 };
 
 // update only use data
 export const updateUserProfile = async (req, res) => {
   try {
-  
+  console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+
      const { userId, Name, Email } = req.body;
     if (!userId) return res.status(400).json({ error: "User ID is required" });
 
@@ -179,8 +185,12 @@ export const updateUserProfile = async (req, res) => {
 
     res.status(200).json({ message: "User profile updated successfully", user: updatedUser });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Server error" });
+   console.error("UPDATE USER PROFILE ERROR:", error);
+
+  res.status(500).json({
+    error: error.message,
+    stack: error.stack,
+  });  
   }
 };
 
