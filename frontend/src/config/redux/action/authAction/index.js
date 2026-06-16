@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { clientServer } from "@/config";
 import Swal from "sweetalert2";
-const authState = useSelector((state) => state.auth);
-console.log("AUTH STATE:", authState);
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, thunkAPI) => {

@@ -113,7 +113,7 @@ useEffect(() => {
   }, [posts, user]);
 
   if (!mounted) return null;
-  const handleImageChange = (e) => {
+  const handleImageChange =async (e) => {
   const file = e.target.files[0];
   if (!file) return;
 
@@ -124,9 +124,10 @@ useEffect(() => {
   formData.append("profileImage", file);
   formData.append("userId", userId);
 
-  dispatch(updateUserProfile(formData));
-};
+  await dispatch(updateUserProfile(formData));
 
+  dispatch(getUserProfile(userId)); // refresh data
+};
   return (
     <Index>
       <DashboardContent>
@@ -152,6 +153,9 @@ useEffect(() => {
           )}`
     }
     alt="profile"
+     onError={(e) => {
+    console.log("Image failed:", e.target.src);
+  }}
   />
 
   <label className={styles.editIcon}>
