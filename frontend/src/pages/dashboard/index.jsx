@@ -73,12 +73,19 @@ const fetchComments = async (postId) => {
 useEffect(() => {
   const auth = localStorage.getItem("auth");
 
-  
-
   if (auth) {
     const parsed = JSON.parse(auth);
-    console.log("PARSED AUTH:", parsed);
-    console.log("USER ID:", parsed?.user?._id);
+
+    console.log("FULL AUTH:", parsed);
+    console.log("USER:", parsed.user);
+
+    const userId =
+      parsed?.user?.user?._id ||
+      parsed?.user?.user?.id ||
+      parsed?.user?._id ||
+      parsed?.user?.id;
+
+    console.log("FINAL USER ID:", userId);
   }
 }, []);
   // 🔐 AUTH + LOAD DATA
