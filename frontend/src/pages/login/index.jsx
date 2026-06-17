@@ -135,7 +135,21 @@ const handleLogin = () => {
             >
               {loading ? "Loading..." : isSignup ? "Sign Up" : "Login"}
             </button>
+<div className={styles.divider}>
+  <span>OR</span>
+</div>
 
+<button
+  type="button"
+  className={styles.googleBtn}
+  onClick={handleGoogleLogin}
+>
+  <img
+    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+    alt="Google"
+  />
+  Continue with Google
+</button>
             {error && <p style={{ color: "red" }}>{error}</p>}
             
   {success && <p style={{ color: "green" }}>{success}</p>}
@@ -157,12 +171,7 @@ const handleLogin = () => {
             <h2>Welcome!</h2>
             
             <p>{isSignup ? "Create your account" : "Login to continue"}</p>
-             <button
-  type="button"
-  onClick={handleGoogleLogin}
->
-  Continue with Google
-</button>
+          
           </div>
         </div>
       </div>
