@@ -113,6 +113,9 @@ useEffect(() => {
 
  // if (loadingAuth) return <p>Checking authentication...</p>;
 if (loadingAuth) return null;
+useEffect(() => {
+  console.log("REDUX USER:", user);
+}, [user]);
   // 📝 CREATE POST
   const handleSubmit = () => {
     if (!text && files.length === 0) return;
