@@ -10,16 +10,26 @@ import path from "path";
 import fetch from "node-fetch";
 
 import jwt from "jsonwebtoken";
-
 export const googleLogin = async (req, res) => {
   try {
-    const { email, name, googleId } = req.body;
+    console.log("GOOGLE LOGIN BODY:", req.body);
+
+    const email = req.body?.email;
+    const name = req.body?.name;
+    const googleId = req.body?.googleId;
+
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email missing from Google login",
+      });
+    }
 
     let user = await User.findOne({ Email: email });
 
     if (!user) {
       user = await User.create({
-        Name: name,
+        Name: name || "Google User",
         Email: email,
         googleId,
         authProvider: "google",
@@ -42,7 +52,7 @@ export const googleLogin = async (req, res) => {
     console.log("Google Login Error:", error);
     return res.status(500).json({
       success: false,
-      message: error.message, // 👈 IMPORTANT (debug easy hoga)
+      message: error.message, // IMPORTANT
     });
   }
 };
