@@ -386,9 +386,10 @@ const loggedInUserId =
                           <div  key={index} >
                           <img
                            
-                            src={src}
+                            src={imageSrc}
                             alt="post media"
                             style={styles.postImage}
+                             onError={() => console.log("IMAGE FAILED:", imageSrc)}
                           />
                             {/* ACTION ICONS */}
           <div style={styles.postActions}>
