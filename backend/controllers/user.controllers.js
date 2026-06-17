@@ -11,13 +11,11 @@ import fetch from "node-fetch";
 
 import jwt from "jsonwebtoken";
 
-  export const googleLogin = async (req, res) => {
+export const googleLogin = async (req, res) => {
   try {
     const { email, name, googleId } = req.body;
 
-    let user = await User.findOne({
-      Email: email,
-    });
+    let user = await User.findOne({ Email: email });
 
     if (!user) {
       user = await User.create({
@@ -38,14 +36,13 @@ import jwt from "jsonwebtoken";
       success: true,
       token,
       user,
-      message: "Google Login Successful",
     });
+
   } catch (error) {
     console.log("Google Login Error:", error);
-
     return res.status(500).json({
       success: false,
-      message: "Server Error",
+      message: error.message, // 👈 IMPORTANT (debug easy hoga)
     });
   }
 };
