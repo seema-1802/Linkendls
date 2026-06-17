@@ -383,8 +383,7 @@ const loggedInUserId =
                         const src = file.url.startsWith("http")
                           ? file.url
                           : `${BACKEND_URL}${file.url}`;
-                           console.log("MEDIA FILE:", file);
-      console.log("IMAGE SRC:", src);
+                           
                         return (
                           <div  key={index} >
                           <img
