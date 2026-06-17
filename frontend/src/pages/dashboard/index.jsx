@@ -374,12 +374,14 @@ const loggedInUserId =
                   {post.body && <p style={styles.body}>{post.body}</p>}
 
                   {/* POST MEDIA */}
-                 
-{post.media?.map((file, index) => {
-  console.log("MEDIA FILE:", file);
-  console.log("IMAGE SRC:", `${BACKEND_URL}${file.url}`);
-
+                 {post.media?.map((file, index) => {
   if (!file?.url) return null;
+
+  const imageSrc = file.url.startsWith("http")
+    ? file.url
+    : `${BACKEND_URL}${file.url}`;
+
+  console.log("IMAGE SRC:", imageSrc);
                         return (
                           <div  key={index} >
                           <img
