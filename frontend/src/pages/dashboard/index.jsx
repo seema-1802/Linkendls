@@ -19,7 +19,7 @@ import DashboardContent from "@/dashbord";
 
 
 export default function Dashboard() {
-  console.log("LOGIN PAGE RENDER");
+  
   const router = useRouter();
   const dispatch = useDispatch();
     
@@ -279,6 +279,7 @@ const loggedInUserId =
 
               return (
                 <div key={post._id} style={styles.postCard}>
+
                   {/* POST HEADER */}
                   <div style={styles.postHeader}>
                     <img
@@ -373,15 +374,12 @@ const loggedInUserId =
                   {post.body && <p style={styles.body}>{post.body}</p>}
 
                   {/* POST MEDIA */}
-                  {post.media &&
-                    post.media.length > 0 &&
-                    post.media
-                      .filter((m) => m.fileType === "image")
-                      .map((file, index) => {
-                        if (!file?.url) return null;
-                        const src = file.url.startsWith("http")
-                          ? file.url
-                          : `${BACKEND_URL}${file.url}`;
+                 
+{post.media?.map((file, index) => {
+  console.log("MEDIA FILE:", file);
+  console.log("IMAGE SRC:", `${BACKEND_URL}${file.url}`);
+
+  if (!file?.url) return null;
                         return (
                           <div  key={index} >
                           <img
