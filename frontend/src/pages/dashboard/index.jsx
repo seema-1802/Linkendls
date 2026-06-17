@@ -279,7 +279,7 @@ const loggedInUserId =
 
               return (
                 <div key={post._id} style={styles.postCard}>
-
+                
                   {/* POST HEADER */}
                   <div style={styles.postHeader}>
                     <img
@@ -374,22 +374,27 @@ const loggedInUserId =
                   {post.body && <p style={styles.body}>{post.body}</p>}
 
                   {/* POST MEDIA */}
-                 {post.media?.map((file, index) => {
-  if (!file?.url) return null;
-
-  const imageSrc = file.url.startsWith("http")
-    ? file.url
-    : `${BACKEND_URL}${file.url}`;
-
-  console.log("IMAGE SRC:", imageSrc);
+                  {post.media &&
+                    post.media.length > 0 &&
+                    post.media
+                      .filter((m) => m.fileType === "image")
+                      .map((file, index) => {
+                        if (!file?.url) return null;
+                        const src = file.url.startsWith("http")
+                          ? file.url
+                          : `${BACKEND_URL}${file.url}`;
+                           console.log("MEDIA FILE:", file);
+      console.log("IMAGE SRC:", src);
                         return (
                           <div  key={index} >
                           <img
                            
-                            src={imageSrc}
+                            src={src}
                             alt="post media"
                             style={styles.postImage}
-                             onError={() => console.log("IMAGE FAILED:", imageSrc)}
+                            onError={() =>
+              console.log("IMAGE FAILED TO LOAD:", src)
+            }
                           />
                             {/* ACTION ICONS */}
           <div style={styles.postActions}>
