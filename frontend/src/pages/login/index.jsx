@@ -10,6 +10,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 import { auth } from "../../config/firebase";
 export default function AuthPage() {
+    console.log("AuthPage Render");
   const dispatch = useDispatch();
   const router = useRouter();
   const authState = useSelector((state) => state.auth);
@@ -27,6 +28,7 @@ export default function AuthPage() {
 const { users } = useSelector((state) => state.auth);
 
 useEffect(() => {
+  
   if (!users?.length) {
     dispatch(getAllUsers());
   }
