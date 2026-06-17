@@ -12,7 +12,7 @@ import fetch from "node-fetch";
 import jwt from "jsonwebtoken";
 export const googleLogin = async (req, res) => {
   try {
-    c
+    
 
     const email = req.body?.email;
     const name = req.body?.name;
