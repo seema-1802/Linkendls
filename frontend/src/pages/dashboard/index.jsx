@@ -114,8 +114,29 @@ useEffect(() => {
  // if (loadingAuth) return <p>Checking authentication...</p>;
 if (loadingAuth) return null;
 useEffect(() => {
-  console.log("REDUX USER:", user);
+  console.log("Dashboard Mounted");
+}, []);
+
+useEffect(() => {
+  console.log("loadingAuth:", loadingAuth);
+}, [loadingAuth]);
+
+useEffect(() => {
+  console.log("Redux User Changed:", user);
 }, [user]);
+useEffect(() => {
+  const auth = localStorage.getItem("auth");
+
+  console.log("AUTH FOUND:", auth);
+
+  if (!auth) {
+    console.log("REDIRECTING TO LOGIN");
+    router.replace("/login");
+    return;
+  }
+
+  console.log("STAYING ON DASHBOARD");
+}, [router]);
   // 📝 CREATE POST
   const handleSubmit = () => {
     if (!text && files.length === 0) return;
