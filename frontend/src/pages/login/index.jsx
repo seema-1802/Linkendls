@@ -86,12 +86,12 @@ const handleLogin = () => {
   return (
     <>
     <Index>
-      <h1>seema</h1>
+      
       <div className={styles.page}>
-        <h1>seema</h1>
+        
         <div className={styles.card}>
           <div className={styles.left}>
-            <h1>seema</h1>
+            
             <h1>{isSignup ? "Sign Up" : "Login"}</h1>
 
             {isSignup && (
@@ -154,6 +154,7 @@ const handleLogin = () => {
 
           <div className={styles.right}>
             <h2>Welcome!</h2>
+            <h2>mr</h2>
             <p>{isSignup ? "Create your account" : "Login to continue"}</p>
           </div>
         </div>
