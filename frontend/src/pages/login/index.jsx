@@ -10,7 +10,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 import { auth } from "../../config/firebase";
 export default function AuthPage() {
-    console.log("AuthPage Render");
+    
   const dispatch = useDispatch();
   const router = useRouter();
   const authState = useSelector((state) => state.auth);
@@ -93,7 +93,7 @@ const handleLogin = () => {
         
         <div className={styles.card}>
           <div className={styles.left}>
-            <button>TEST BUTTON</button>
+            
             <h1>{isSignup ? "Sign Up" : "Login"}</h1>
 
             {isSignup && (
@@ -135,12 +135,7 @@ const handleLogin = () => {
             {error && <p style={{ color: "red" }}>{error}</p>}
             
   {success && <p style={{ color: "green" }}>{success}</p>}
-  <button
-  type="button"
-  onClick={handleGoogleLogin}
->
-  Continue with Google
-</button>
+ 
             <p
               style={{ marginTop: "10px", cursor: "pointer", color: "blue" }}
               onClick={() =>
@@ -158,6 +153,12 @@ const handleLogin = () => {
             <h2>Welcome!</h2>
             
             <p>{isSignup ? "Create your account" : "Login to continue"}</p>
+             <button
+  type="button"
+  onClick={handleGoogleLogin}
+>
+  Continue with Google
+</button>
           </div>
         </div>
       </div>
