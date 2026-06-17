@@ -26,7 +26,8 @@ export default function AuthPage() {
     Password: "",
   });
 const { users } = useSelector((state) => state.auth);
-
+const currentUser = authState?.user?.user || authState?.user;
+const userId = currentUser?.id;
 useEffect(() => {
   
   if (!users?.length) {
@@ -35,11 +36,12 @@ useEffect(() => {
 }, [dispatch, users]);
   // Redirect to dashboard after login/signup
   useEffect(() => {
-    if (isAuthenticated) {
-       
-      router.push("/dashboard");
-    }
-  }, [isAuthenticated, router]);
+  const currentUser = authState?.user?.user || authState?.user;
+
+  if (isAuthenticated && currentUser?.id) {
+    router.push("/dashboard");
+  }
+}, [isAuthenticated, authState?.user, router]);
 
   const handleChange = (e) => {
     setFormData({
@@ -49,20 +51,22 @@ useEffect(() => {
   };
 
  
-
 const handleGoogleLogin = async () => {
   try {
     const provider = new GoogleAuthProvider();
-
     const result = await signInWithPopup(auth, provider);
-    console.log("GOOGLE USER:", result.user);
-    await dispatch(
-      googleLoginUser({
-        email: result.user.email,
-        name: result.user.displayName,
-        googleId: result.user.uid,
-      })
-    );
+
+    const payload = {
+      email: result.user.email,
+      name: result.user.displayName,
+      googleId: result.user.uid,
+    };
+
+    const res = await dispatch(googleLoginUser(payload));
+
+    if (googleLoginUser.fulfilled.match(res)) {
+      router.push("/dashboard");
+    }
   } catch (error) {
     console.log(error);
   }
@@ -110,7 +114,7 @@ const handleLogin = () => {
   name="Email"
   placeholder="Email"
   className={styles.input}
-  value={formData.Email}          
+   value={formData.Email || ""}         
   onChange={handleChange}
 />
 
@@ -119,7 +123,7 @@ const handleLogin = () => {
   name="Password"
   placeholder="Password"
   className={styles.input}
-  value={formData.Password}       
+    value={formData.Password || ""}      
   onChange={handleChange}
 />
 
