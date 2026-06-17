@@ -71,12 +71,9 @@ const fetchComments = async (postId) => {
   }
 };
 useEffect(() => {
-  console.log("LOGIN PAGE MOUNT");
-}, []);
-useEffect(() => {
   const auth = localStorage.getItem("auth");
 
-  console.log("AUTH STORAGE:", auth);
+  
 
   if (auth) {
     const parsed = JSON.parse(auth);
@@ -86,7 +83,7 @@ useEffect(() => {
 }, []);
   // 🔐 AUTH + LOAD DATA
   useEffect(() => {
-     console.log("DASHBOARD MOUNT");
+     
     const auth = localStorage.getItem("auth");
     if (!auth) {
       router.replace("/login");
@@ -97,7 +94,7 @@ useEffect(() => {
     const userId = parsedAuth?.user?._id || parsedAuth?.user?.id;
 
     if (!userId) {
-        console.log("REDIRECT LOGIN");
+        
       router.replace("/login");
       return;
     }
@@ -297,7 +294,7 @@ const loggedInUserId =
                     />
                     <div style={styles.userInfo}>
                      <span>{postUser?.Name || user?.Name}</span>
-<span>{postUser?.Email || user?.Email}</span>
+{/* <span>{postUser?.Email || user?.Email}</span> */}
 
                      </div>
                   </div>
@@ -391,9 +388,7 @@ const loggedInUserId =
                             src={src}
                             alt="post media"
                             style={styles.postImage}
-                            onError={() =>
-              console.log("IMAGE FAILED TO LOAD:", src)
-            }
+                         
                           />
                             {/* ACTION ICONS */}
           <div style={styles.postActions}>
