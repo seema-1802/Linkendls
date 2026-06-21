@@ -16,6 +16,8 @@ const DashboardContent = ({ children }) => {
   // screen width detect
   const [isMobile, setIsMobile] = useState(false);
 
+console.log("ALL USERS:", users);
+console.log("USERS LOADING:", usersLoading);
     useEffect(() => {
     const checkScreen = () => {
       setIsMobile(window.innerWidth <= 768);
