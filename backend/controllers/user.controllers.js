@@ -8,7 +8,7 @@ import PDFDocument from "pdfkit";
 import fs from "fs";
 import path from "path";
 import fetch from "node-fetch";
-
+import cloudinary from "../config/cloudinary.js";
 import jwt from "jsonwebtoken";
 export const googleLogin = async (req, res) => {
   try {
@@ -146,8 +146,11 @@ export const uploadProfileImage = async (req, res) => {
       return res.status(400).json({ error: "User ID is required" });
     }
 
-    const imageUrl = `/uploads/${req.file.filename}`; // or full URL if you prefer
+   // const imageUrl = `/uploads/${req.file.filename}`; // or full URL if you prefer
+const result = await cloudinary.uploader.upload(req.file.path);
 
+const imageUrl = result.secure_url;
+fs.unlinkSync(req.file.path);
     // Find user by ID and update profile image
     const updatedUser = await User.findByIdAndUpdate(
       userId,
@@ -164,7 +167,7 @@ export const uploadProfileImage = async (req, res) => {
       user: updatedUser,
     });
   } catch (err) {
-   console.error("UPDATE USER PROFILE ERROR:", error);
+   console.error("UPDATE USER PROFILE ERROR:", err);
 
   res.status(500).json({
     error: error.message,
@@ -185,8 +188,14 @@ export const updateUserProfile = async (req, res) => {
     const updateData = {};
     if (Name) updateData.Name = req.body.Name;
     if (Email) updateData.Email = req.body.Email;
-    if (req.file) updateData.ProfileImage = `/uploads/${req.file.filename}`;
+   // if (req.file) updateData.ProfileImage = `/uploads/${req.file.filename}`;
+if (req.file) {
+  const result = await cloudinary.uploader.upload(req.file.path);
 
+  updateData.ProfileImage = result.secure_url;
+
+  fs.unlinkSync(req.file.path);
+}
     const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
     if (!updatedUser) return res.status(404).json({ error: "User not found" });
 
