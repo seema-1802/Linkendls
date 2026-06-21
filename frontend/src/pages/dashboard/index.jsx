@@ -46,7 +46,16 @@ const [comments, setComments] = useState({});
   
 const handleDeleteComment = async (commentId, postId) => {
   const auth = JSON.parse(localStorage.getItem("auth"));
-  const userId = auth?.user?._id || auth?.user?.id;
+ const userId =
+  auth?.user?.user?._id ||
+  auth?.user?.user?.id ||
+  auth?.user?._id ||
+  auth?.user?.id;
+
+  console.log("AUTH:", auth);
+console.log("USER:", user);
+console.log("USER ID:", userId);
+console.log(JSON.parse(localStorage.getItem("auth")));
 
  await fetch(`${BACKEND_URL}/post/deleteComment`, {
   method: "POST",
@@ -70,24 +79,10 @@ const fetchComments = async (postId) => {
     console.error("Error fetching comments", err);
   }
 };
-useEffect(() => {
-  const auth = localStorage.getItem("auth");
 
-  if (auth) {
-    const parsed = JSON.parse(auth);
 
-    console.log("FULL AUTH:", parsed);
-    console.log("USER:", parsed.user);
+//staring this login 
 
-    const userId =
-      parsed?.user?.user?._id ||
-      parsed?.user?.user?.id ||
-      parsed?.user?._id ||
-      parsed?.user?.id;
-
-    console.log("FINAL USER ID:", userId);
-  }
-}, []);
   // 🔐 AUTH + LOAD DATA
   useEffect(() => {
      
@@ -98,8 +93,11 @@ useEffect(() => {
     }
 
     const parsedAuth = JSON.parse(auth);
-    const userId = parsedAuth?.user?._id || parsedAuth?.user?.id;
-
+   const userId =
+    parsedAuth?.user?.user?._id ||
+    parsedAuth?.user?.user?.id ||
+    parsedAuth?.user?._id ||
+    parsedAuth?.user?.id;
     if (!userId) {
         
       router.replace("/login");
@@ -112,7 +110,7 @@ useEffect(() => {
   }, [dispatch, router]);
 
  // if (loadingAuth) return <p>Checking authentication...</p>;
-if (loadingAuth) return null;
+
 useEffect(() => {
   console.log("Dashboard Mounted");
 }, []);
@@ -124,19 +122,25 @@ useEffect(() => {
 useEffect(() => {
   console.log("Redux User Changed:", user);
 }, [user]);
-useEffect(() => {
-  const auth = localStorage.getItem("auth");
 
-  console.log("AUTH FOUND:", auth);
+// NOW RETURN
+if (loadingAuth) {
+  return <p>Loading...</p>;
+}
+// useEffect(() => {
+//   const auth = localStorage.getItem("auth");
 
-  if (!auth) {
-    console.log("REDIRECTING TO LOGIN");
-    router.replace("/login");
-    return;
-  }
+//   console.log("AUTH FOUND:", auth);
 
-  console.log("STAYING ON DASHBOARD");
-}, [router]);
+//   if (!auth) {
+//     console.log("REDIRECTING TO LOGIN");
+//     router.replace("/login");
+//     return;
+//   }
+
+//   console.log("STAYING ON DASHBOARD");
+// }, [router]);
+
   // 📝 CREATE POST
   const handleSubmit = () => {
     if (!text && files.length === 0) return;

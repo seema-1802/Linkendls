@@ -27,7 +27,7 @@ export default function AuthPage() {
   });
 const { users } = useSelector((state) => state.auth);
 const currentUser = authState?.user?.user || authState?.user;
-const userId = currentUser?.id;
+
 useEffect(() => {
   
   if (!users?.length) {
