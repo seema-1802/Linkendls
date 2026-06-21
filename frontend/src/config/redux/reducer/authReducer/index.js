@@ -77,8 +77,8 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
-        state.isAuthenticated = true; // optional: auto login after signup
+        // state.user = action.payload;
+        // state.isAuthenticated = true; // optional: auto login after signup
            state.success = action.payload.message; 
       
        localStorage.setItem(
@@ -99,16 +99,16 @@ const authSlice = createSlice({
 .addCase(getUserProfile.fulfilled, (state, action) => {
   state.loading = false;
   state.profile = action.payload.userProfile;
-  state.user = action.payload.userProfile.userId;
-   const auth = JSON.parse(localStorage.getItem("auth"));
-      localStorage.setItem(
-        "auth",
-        JSON.stringify({
-          ...auth,
-          user: state.user,
-        })
-      );
-})
+//   state.user = action.payload.userProfile.userId;
+//    const auth = JSON.parse(localStorage.getItem("auth"));
+//       localStorage.setItem(
+//         "auth",
+//         JSON.stringify({
+//           ...auth,
+//           user: state.user,
+//         })
+//       );
+ })
 
 
 

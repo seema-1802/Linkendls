@@ -11,7 +11,7 @@ const DashboardContent = ({ children }) => {
   const router = useRouter();
 
   //  get all users from redux or one single bhi la saka te hai
-  const { users, loading } = useSelector((state) => state.auth);
+  const { users, loading, usersLoading } = useSelector((state) => state.auth);
 
   // screen width detect
   const [isMobile, setIsMobile] = useState(false);
@@ -28,7 +28,7 @@ const DashboardContent = ({ children }) => {
 const renderUsers = () => (
   <>
     <h3 style={styles.rightTitle}>All Users</h3>
-    {loading ? (
+    {usersLoading ? (
       <p>Loading users...</p>
     ) : users && users.length > 0 ? (
       users.map((user) => (
