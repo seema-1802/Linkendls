@@ -36,15 +36,15 @@ useEffect(() => {
 }, [dispatch, users]);
   // Redirect to dashboard after login/signup
  useEffect(() => {
-  console.log("Login Redirect Check", {
-    isAuthenticated,
-    user: authState?.user,
-  });
+  // console.log("Login Redirect Check", {
+  //   isAuthenticated,
+  //   user: authState?.user,
+  // });
 
   const currentUser = authState?.user?.user || authState?.user;
 
   if (isAuthenticated && currentUser?.id) {
-    console.log("PUSHING TO DASHBOARD");
+
     router.push("/dashboard");
   }
 }, [isAuthenticated, authState?.user, router]);

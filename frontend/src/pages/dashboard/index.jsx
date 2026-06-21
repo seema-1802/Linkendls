@@ -52,11 +52,7 @@ const handleDeleteComment = async (commentId, postId) => {
   auth?.user?._id ||
   auth?.user?.id;
 
-  console.log("AUTH:", auth);
-console.log("USER:", user);
-console.log("USER ID:", userId);
-console.log(JSON.parse(localStorage.getItem("auth")));
-
+ 
  await fetch(`${BACKEND_URL}/post/deleteComment`, {
   method: "POST",
 
@@ -111,16 +107,16 @@ const fetchComments = async (postId) => {
 
  // if (loadingAuth) return <p>Checking authentication...</p>;
 
+// // REMOVE THIS
+// useEffect(() => {
+//   console.log("Dashboard Mounted");
+// }, []);
 useEffect(() => {
-  console.log("Dashboard Mounted");
-}, []);
-
-useEffect(() => {
-  console.log("loadingAuth:", loadingAuth);
+  
 }, [loadingAuth]);
 
 useEffect(() => {
-  console.log("Redux User Changed:", user);
+  
 }, [user]);
 
 // NOW RETURN
