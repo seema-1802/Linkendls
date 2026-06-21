@@ -191,7 +191,7 @@ export const updateUserProfile = async (req, res) => {
    // if (req.file) updateData.ProfileImage = `/uploads/${req.file.filename}`;
 if (req.file) {
   const result = await cloudinary.uploader.upload(req.file.path);
-
+ console.log("CLOUDINARY RESULT:", result);
   updateData.ProfileImage = result.secure_url;
 
   fs.unlinkSync(req.file.path);
