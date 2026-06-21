@@ -77,8 +77,8 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        // state.user = action.payload;
-        // state.isAuthenticated = true; // optional: auto login after signup
+         state.user = action.payload.user || action.payload;
+        state.isAuthenticated = true; // optional: auto login after signup
            state.success = action.payload.message; 
       
        localStorage.setItem(
