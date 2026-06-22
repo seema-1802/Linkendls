@@ -5,11 +5,11 @@ export default function PostPage({ post }) {
   if (!post) {
     return <h2 style={{ padding: 40 }}>Post not found</h2>;
   }
-
-  const imageUrl =
-    post.media?.[0]?.url
-      ? `${BACKEND_URL}${post.media[0].url}`
-      : "";
+const imageUrl = post.media?.[0]?.url
+  ? post.media[0].url.startsWith("http")
+    ? post.media[0].url
+    : `${BACKEND_URL}${post.media[0].url}`
+  : "";
 const shareUrl = `https://linkendls.vercel.app/post/${post._id}`;
   return (
     <>
