@@ -19,20 +19,80 @@ const shareUrl = `https://linkendls.vercel.app/post/${post._id}`;
         {imageUrl && <meta property="og:image" content={imageUrl} />}
         <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={post.body || "Post"} />
+<meta name="twitter:description" content="Check out this post" />
+<meta name="twitter:image" content={imageUrl} />
       </Head>
 
-      <div style={{ padding: 40 }}>
-        <h2>{post.userId?.Name}</h2>
-        <p>{post.body}</p>
+      <div
+  style={{
+    maxWidth: "700px",
+    margin: "40px auto",
+    background: "#fff",
+    borderRadius: "12px",
+    overflow: "hidden",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+  }}
+>
+  {imageUrl && (
+    <img
+      src={imageUrl}
+      alt="post"
+      style={{
+        width: "100%",
+        maxHeight: "500px",
+        objectFit: "cover",
+      }}
+    />
+  )}
 
-        {imageUrl && (
-          <img
-            src={imageUrl}
-            alt="post"
-            style={{ maxWidth: "400px", borderRadius: "10px" }}
-          />
-        )}
+  <div style={{ padding: "20px" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+        marginBottom: "15px",
+      }}
+    >
+      <img
+        src={
+          post.userId?.ProfileImage ||
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            post.userId?.Name || "User"
+          )}`
+        }
+        alt="profile"
+        style={{
+          width: "50px",
+          height: "50px",
+          borderRadius: "50%",
+          objectFit: "cover",
+        }}
+      />
+
+      <div>
+        <h3 style={{ margin: 0 }}>
+          {post.userId?.Name}
+        </h3>
+
+        <small style={{ color: "#666" }}>
+          {new Date(post.createdAt).toLocaleString()}
+        </small>
       </div>
+    </div>
+
+    <p
+      style={{
+        fontSize: "16px",
+        lineHeight: "1.6",
+      }}
+    >
+      {post.body}
+    </p>
+  </div>
+</div>
     </>
   );
 }
