@@ -10,6 +10,66 @@ import path from "path";
 import fetch from "node-fetch";
 import cloudinary from "../config/cloudinary.js";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ Email: email });
+
+  if (!user) {
+    return res.status(404).json({
+      error: "User not found",
+    });
+  }
+
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  user.resetPasswordToken = resetToken;
+
+  user.resetPasswordExpire =
+    Date.now() + 15 * 60 * 1000;
+
+  await user.save();
+
+  const resetUrl =
+    `https://linkendls.vercel.app/reset-password/${resetToken}`;
+
+  console.log(resetUrl);
+
+  res.json({
+    message: "Reset link generated",
+    resetUrl,
+  });
+};
+export const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  const user = await User.findOne({
+    resetPasswordToken: token,
+    resetPasswordExpire: {
+      $gt: Date.now(),
+    },
+  });
+
+  if (!user) {
+    return res.status(400).json({
+      error: "Invalid or expired token",
+    });
+  }
+
+  user.Password = password;
+
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+
+  res.json({
+    message: "Password updated",
+  });
+};
 export const googleLogin = async (req, res) => {
   try {
     

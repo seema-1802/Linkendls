@@ -42,6 +42,8 @@ authProvider: {
     type: Date,
     default: Date.now,
   },
+  resetPasswordToken: String,
+resetPasswordExpire: Date,
 
 }, { timestamps: true });
 

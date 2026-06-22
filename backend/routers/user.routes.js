@@ -60,7 +60,11 @@ router.get("/user/getMyConnectedRequests/:userId", getMyConnectedRequests);
 
 router.get("/user/getMyAcceptedConnections/:userId", getMyAcceptedConnections);
 router.post("/user/respondConnection", respondConnection);
-
+router.post("/forgotPassword", forgotPassword);
+router.post(
+  "/resetPassword/:token",
+  resetPassword
+);
 // ✅ New route to get user by name
 router.get("/user/getUserByName/:name", getUserByName);
 //  .post((req, res) => {
