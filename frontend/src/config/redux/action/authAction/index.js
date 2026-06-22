@@ -27,6 +27,30 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const forgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async (Email, thunkAPI) => {
+    try {
+      const response = await clientServer.post(
+        "/auth/forgot-password",
+        { Email }
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Email Sent",
+        text: response.data.message,
+      });
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.error
+      );
+    }
+  }
+);
+
 export const registerUser = createAsyncThunk(
     "auth/registerUser",
     async (userData, thunkAPI) => {

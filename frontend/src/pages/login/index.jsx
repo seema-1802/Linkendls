@@ -131,6 +131,20 @@ const handleLogin = () => {
     value={formData.Password || ""}      
   onChange={handleChange}
 />
+{!isSignup && (
+  <p
+    style={{
+      textAlign: "right",
+      color: "#0a66c2",
+      cursor: "pointer",
+      marginTop: "8px",
+      fontSize: "14px"
+    }}
+    onClick={() => router.push("/forgot-password")}
+  >
+    Forgot Password?
+  </p>
+)}
 
 
             <button

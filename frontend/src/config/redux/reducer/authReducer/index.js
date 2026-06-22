@@ -243,6 +243,17 @@ builder
   );
 })
 
+.addCase(forgotPassword.pending, (state) => {
+  state.loading = true;
+})
+.addCase(forgotPassword.fulfilled, (state, action) => {
+  state.loading = false;
+  state.success = action.payload.message;
+})
+.addCase(forgotPassword.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload;
+})
 .addCase(googleLoginUser.rejected, (state, action) => {
   state.loading = false;
   state.error = action.payload;
