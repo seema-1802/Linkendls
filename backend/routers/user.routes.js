@@ -43,9 +43,15 @@ router.get("/cloudinary-test", async (req, res) => {
 });
 router.get("/cloudinary-upload-test", async (req, res) => {
   try {
-    const result = await cloudinary.uploader.upload(
-      "./uploads/test.png"
-    );
+    const filePath = req.query.path; // send from frontend or postman
+
+    if (!filePath) {
+      return res.status(400).json({ error: "file path required" });
+    }
+
+    const result = await cloudinary.uploader.upload(filePath, {
+      resource_type: "image"
+    });
 
     res.json(result);
   } catch (err) {
