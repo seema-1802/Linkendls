@@ -193,8 +193,12 @@ export const updateUserProfile = async (req, res) => {
 if (req.file) {
   try {
       console.log("Uploading to Cloudinary:", req.file.path);
-    const result = await cloudinary.uploader.upload(req.file.path);
-
+    const result = await cloudinary.uploader.upload( req.file.path,
+  {
+    folder: "profiles"
+  });
+console.log("FILE PATH:", req.file.path);
+console.log("FILE EXISTS:", fs.existsSync(req.file.path));
     console.log("CLOUDINARY SUCCESS:", result.secure_url);
 
     updateData.ProfileImage = result.secure_url;
@@ -207,6 +211,11 @@ if (req.file) {
     return res.status(500).json({
       error: cloudErr.message,
       cloudinary: cloudErr,
+        message: cloudErr.message,
+    name: cloudErr.name,
+    http_code: cloudErr.http_code,
+    error: cloudErr.error,
+    full: JSON.stringify(cloudErr, null, 2),
     });
   }
 }
