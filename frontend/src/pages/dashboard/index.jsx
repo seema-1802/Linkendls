@@ -165,8 +165,7 @@ if (loadingAuth) {
 };
 const handleNativeShare = async (post) => {
   const shareUrl = `${window.location.origin}/post/${post._id}`;
-console.log(post);
-console.log(post._id);
+
   if (navigator.share) {
     try {
       await navigator.share({
@@ -273,10 +272,34 @@ const handleSendComment = async(postId) => {
                   type="file"
                   hidden
                   multiple
-                  onChange={(e) => setFiles([...e.target.files])}
+                  // onChange={(e) => setFiles([...e.target.files])}
+                    onChange={(e) => {
+      const selectedFiles = [...e.target.files];
+      setFiles(selectedFiles);
+
+      if (selectedFiles.length > 0) {
+        Swal.fire({
+          icon: "success",
+          title: "Image Selected",
+          text: `${selectedFiles.length} file selected`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    }}
                 />
               </label>
-
+{files.length > 0 && (
+  <img
+    src={URL.createObjectURL(files[0])}
+    alt="preview"
+    style={{
+      width: "120px",
+      marginTop: "10px",
+      borderRadius: "8px",
+    }}
+  />
+)}
               <button onClick={handleSubmit} style={styles.postBtn}>
                 Post
               </button>
