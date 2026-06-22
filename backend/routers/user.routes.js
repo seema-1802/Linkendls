@@ -25,40 +25,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-router.get("/cloudinary-test", async (req, res) => {
-  try {
-    const result = await cloudinary.api.ping();
 
-    console.log("PING RESULT:", result);
-
-    return res.json(result);
-  } catch (err) {
-    console.error("PING ERROR:", err);
-
-    return res.status(500).json({
-      message: err.message,
-      error: err,
-    });
-  }
-});
-router.get("/cloudinary-upload-test", async (req, res) => {
-  try {
-    const filePath = req.query.path; // send from frontend or postman
-
-    if (!filePath) {
-      return res.status(400).json({ error: "file path required" });
-    }
-
-    const result = await cloudinary.uploader.upload(filePath, {
-      resource_type: "image"
-    });
-
-    res.json(result);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-});
 router.post('/upload-profile', upload.single('profileImage'),uploadProfileImage
 );
 router.route("/signup").post(registerUser);

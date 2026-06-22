@@ -179,10 +179,7 @@ fs.unlinkSync(req.file.path);
 // update only use data
 export const updateUserProfile = async (req, res) => {
   try {
-     console.log("====== USER UPDATE ======");
-  console.log("BODY:", req.body);
-    console.log("FILE:", req.file);
-
+    
      const { userId, Name, Email } = req.body;
     if (!userId) return res.status(400).json({ error: "User ID is required" });
 
@@ -198,13 +195,8 @@ if (req.file) {
      folder: "test_uploads",
   resource_type: "auto",
   });
-console.log("FILE PATH:", req.file.path);
-console.log("FILE EXISTS:", fs.existsSync(req.file.path));
 
 const stat = fs.statSync(req.file.path);
-console.log("FILE SIZE:", stat.size);
-
-    console.log("CLOUDINARY SUCCESS:", result.secure_url);
 
     updateData.ProfileImage = result.secure_url;
 console.log("UPLOAD SUCCESS:", result.secure_url);
