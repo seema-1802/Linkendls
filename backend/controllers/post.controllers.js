@@ -3,7 +3,7 @@ import Comment from "../models/Comment.js";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-
+import cloudinary from "../config/cloudinary.js";
 // 🟢 Multer setup for uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -29,19 +29,29 @@ export const createPost = async (req, res) => {
     }
 
     // Handle uploaded files (if any)
-    let mediaFiles = [];
-    if (req.files && req.files.length > 0) {
-      mediaFiles = req.files.map((file) => ({
-        url: `/uploads/posts/${file.filename}`,
-        fileType: file.mimetype.startsWith("image")
-          ? "image"
-          : file.mimetype.startsWith("video")
-          ? "video"
-          : file.mimetype.startsWith("audio")
-          ? "audio"
-          : "other",
-      }));
-    }
+   let mediaFiles = [];
+
+if (req.files && req.files.length > 0) {
+  for (const file of req.files) {
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: "posts",
+      resource_type: "auto",
+    });
+
+    mediaFiles.push({
+      url: result.secure_url,
+      fileType: file.mimetype.startsWith("image")
+        ? "image"
+        : file.mimetype.startsWith("video")
+        ? "video"
+        : file.mimetype.startsWith("audio")
+        ? "audio"
+        : "other",
+    });
+
+    fs.unlinkSync(file.path);
+  }
+}
 
     // Create new post
     const newPost = new Post({
