@@ -179,6 +179,7 @@ fs.unlinkSync(req.file.path);
 // update only use data
 export const updateUserProfile = async (req, res) => {
   try {
+     console.log("====== USER UPDATE ======");
   console.log("BODY:", req.body);
     console.log("FILE:", req.file);
 
@@ -191,6 +192,7 @@ export const updateUserProfile = async (req, res) => {
    // if (req.file) updateData.ProfileImage = `/uploads/${req.file.filename}`;
 if (req.file) {
   try {
+      console.log("Uploading to Cloudinary:", req.file.path);
     const result = await cloudinary.uploader.upload(req.file.path);
 
     console.log("CLOUDINARY SUCCESS:", result.secure_url);
