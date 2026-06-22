@@ -195,10 +195,12 @@ if (req.file) {
       console.log("Uploading to Cloudinary:", req.file.path);
     const result = await cloudinary.uploader.upload( req.file.path,
   {
-    folder: "profiles"
+    resource_type: "image"
   });
 console.log("FILE PATH:", req.file.path);
 console.log("FILE EXISTS:", fs.existsSync(req.file.path));
+
+
     console.log("CLOUDINARY SUCCESS:", result.secure_url);
 
     updateData.ProfileImage = result.secure_url;
