@@ -3,7 +3,7 @@ import { Router } from "express";
 import {registerUser,login,uploadProfileImage,updateUserProfile,getUserWithProfile, getAllUserProfile,generateResume,updateProfileData, sendConnectedRequest, getMyConnectedRequests,  getMyAcceptedConnections, respondConnection,getUserByName,googleLogin } from "../controllers/user.controllers.js"
 import multer from 'multer';
 import fs from "fs";
-
+import cloudinary from "../config/cloudinary.js";
 if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads", { recursive: true });
 }
@@ -21,14 +21,20 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-// routes/userRoutes.js
-
 router.get("/cloudinary-test", async (req, res) => {
   try {
     const result = await cloudinary.api.ping();
-    res.json(result);
+
+    console.log("PING RESULT:", result);
+
+    return res.json(result);
   } catch (err) {
-    res.status(500).json(err);
+    console.error("PING ERROR:", err);
+
+    return res.status(500).json({
+      message: err.message,
+      error: err,
+    });
   }
 });
 router.post('/upload-profile', upload.single('profileImage'),uploadProfileImage
