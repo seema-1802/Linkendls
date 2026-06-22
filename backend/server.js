@@ -85,15 +85,6 @@ passport.deserializeUser(User.deserializeUser());
 //   error.status = 404;
 //   next(error);
 // });
-app.get("/cloudinary-test", async (req, res) => {
-  try {
-    const result = await cloudinary.api.ping();
-    res.json(result);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-});
 console.log("CLOUDINARY_CLOUD_NAME =", process.env.CLOUDINARY_CLOUD_NAME);
 console.log("CLOUDINARY_API_KEY =", process.env.CLOUDINARY_API_KEY);
 console.log(

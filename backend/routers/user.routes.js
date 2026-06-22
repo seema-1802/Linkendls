@@ -21,7 +21,16 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+// routes/userRoutes.js
 
+router.get("/cloudinary-test", async (req, res) => {
+  try {
+    const result = await cloudinary.api.ping();
+    res.json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 router.post('/upload-profile', upload.single('profileImage'),uploadProfileImage
 );
 router.route("/signup").post(registerUser);
