@@ -170,8 +170,8 @@ fs.unlinkSync(req.file.path);
    console.error("UPDATE USER PROFILE ERROR:", err);
 
   res.status(500).json({
-    error: error.message,
-    stack: error.stack,
+    error: err.message,
+    stack: err.stack,
   });  
   }
 };
@@ -190,11 +190,23 @@ export const updateUserProfile = async (req, res) => {
     if (Email) updateData.Email = req.body.Email;
    // if (req.file) updateData.ProfileImage = `/uploads/${req.file.filename}`;
 if (req.file) {
-  const result = await cloudinary.uploader.upload(req.file.path);
- console.log("CLOUDINARY RESULT:", result);
-  updateData.ProfileImage = result.secure_url;
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path);
 
-  fs.unlinkSync(req.file.path);
+    console.log("CLOUDINARY SUCCESS:", result.secure_url);
+
+    updateData.ProfileImage = result.secure_url;
+
+    fs.unlinkSync(req.file.path);
+  } catch (cloudErr) {
+    console.error("CLOUDINARY ERROR:");
+    console.error(cloudErr);
+
+    return res.status(500).json({
+      error: cloudErr.message,
+      cloudinary: cloudErr,
+    });
+  }
 }
     const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
     if (!updatedUser) return res.status(404).json({ error: "User not found" });
