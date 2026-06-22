@@ -195,7 +195,8 @@ if (req.file) {
       console.log("Uploading to Cloudinary:", req.file.path);
     const result = await cloudinary.uploader.upload( req.file.path,
   {
-    resource_type: "image"
+     folder: "test_uploads",
+  resource_type: "auto",
   });
 console.log("FILE PATH:", req.file.path);
 console.log("FILE EXISTS:", fs.existsSync(req.file.path));
