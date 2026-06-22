@@ -153,9 +153,7 @@ useEffect(() => {
           )}`
     }
     alt="profile"
-     onError={(e) => {
-    console.log("Image failed:", e.target.src);
-  }}
+    
   />
 
   <label className={styles.editIcon}>

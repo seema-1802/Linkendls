@@ -165,7 +165,8 @@ if (loadingAuth) {
 };
 const handleNativeShare = async (post) => {
   const shareUrl = `${window.location.origin}/post/${post._id}`;
-
+console.log(post);
+console.log(post._id);
   if (navigator.share) {
     try {
       await navigator.share({

@@ -10,9 +10,7 @@ export default function PostPage({ post }) {
     post.media?.[0]?.url
       ? `${BACKEND_URL}${post.media[0].url}`
       : "";
-
-  const shareUrl = `http://localhost:3000/post/${post._id}`;
-
+const shareUrl = `https://linkendls.vercel.app/post/${post._id}`;
   return (
     <>
       <Head>
@@ -42,8 +40,8 @@ export async function getServerSideProps(context) {
   const { id } = context.params;
 
   try {
-    const res = await fetch(
-      `http://localhost:8080/post/getSinglePost/${id}`
+     const res = await fetch(
+      `${BACKEND_URL}/post/getSinglePost/${id}`
     );
     const data = await res.json();
 
