@@ -200,11 +200,13 @@ if (req.file) {
 console.log("FILE PATH:", req.file.path);
 console.log("FILE EXISTS:", fs.existsSync(req.file.path));
 
+const stat = fs.statSync(req.file.path);
+console.log("FILE SIZE:", stat.size);
 
     console.log("CLOUDINARY SUCCESS:", result.secure_url);
 
     updateData.ProfileImage = result.secure_url;
-
+console.log("UPLOAD SUCCESS:", result.secure_url);
     fs.unlinkSync(req.file.path);
   } catch (cloudErr) {
     console.error("CLOUDINARY ERROR:");

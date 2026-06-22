@@ -14,8 +14,12 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');  
   },
-  filename:  (req, file, cb)=> {
-    const uniqueName = Date.now() + '-' + file.originalname;
+   filename: (req, file, cb) => {
+    const uniqueName =
+      Date.now() +
+      "-" +
+      file.originalname.replace(/[^a-zA-Z0-9.]/g, "_");
+
     cb(null, uniqueName);
   }
 });
@@ -35,6 +39,18 @@ router.get("/cloudinary-test", async (req, res) => {
       message: err.message,
       error: err,
     });
+  }
+});
+router.get("/cloudinary-upload-test", async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.upload(
+      "./uploads/test.png"
+    );
+
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
   }
 });
 router.post('/upload-profile', upload.single('profileImage'),uploadProfileImage
