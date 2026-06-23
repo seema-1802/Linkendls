@@ -32,7 +32,7 @@ export const forgotPassword = createAsyncThunk(
   async (Email, thunkAPI) => {
     try {
       const response = await clientServer.post(
-        "/auth/forgot-password",
+        "/forgot-password",
         { Email }
       );
 
