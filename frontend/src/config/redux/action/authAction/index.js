@@ -26,26 +26,26 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
-
 export const forgotPassword = createAsyncThunk(
   "auth/forgotPassword",
-  async (Email, thunkAPI) => {
+  async (email, thunkAPI) => {
     try {
       const response = await clientServer.post(
-        "/forgot-password",
-        { Email }
+        "/forgotPassword",
+        { email }
       );
 
       Swal.fire({
         icon: "success",
-        title: "Email Sent",
+        title: "Success",
         text: response.data.message,
       });
 
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
-        error.response?.data?.error
+        error.response?.data?.error ||
+          "Failed to send reset link"
       );
     }
   }

@@ -9,7 +9,8 @@ export default function ResetPassword() {
   const { token } = router.query;
 
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] =
+    useState("");
   const [loading, setLoading] = useState(false);
 
   const handleReset = async () => {
@@ -31,23 +32,13 @@ export default function ResetPassword() {
       return;
     }
 
-    if (password.length < 6) {
-      Swal.fire(
-        "Error",
-        "Password must be at least 6 characters",
-        "error"
-      );
-      return;
-    }
-
     try {
       setLoading(true);
 
       const res = await axios.post(
-        `${BACKEND_URL}/reset-password`,
+        `${BACKEND_URL}/resetPassword/${token}`,
         {
-          token,
-          Password: password,
+          password,
         }
       );
 
@@ -80,10 +71,6 @@ export default function ResetPassword() {
           Reset Password
         </h1>
 
-        <p style={styles.subtitle}>
-          Enter your new password below.
-        </p>
-
         <input
           type="password"
           placeholder="New Password"
@@ -113,13 +100,6 @@ export default function ResetPassword() {
             ? "Updating..."
             : "Reset Password"}
         </button>
-
-        <p
-          style={styles.back}
-          onClick={() => router.push("/login")}
-        >
-          Back to Login
-        </p>
       </div>
     </div>
   );
@@ -131,60 +111,24 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#f3f2ef",
-    padding: "20px",
   },
-
   card: {
-    width: "100%",
-    maxWidth: "420px",
-    background: "#fff",
-    padding: "35px",
-    borderRadius: "14px",
-    boxShadow:
-      "0 4px 15px rgba(0,0,0,0.08)",
+    width: "400px",
+    padding: "30px",
+    border: "1px solid #ddd",
+    borderRadius: "10px",
   },
-
   title: {
     textAlign: "center",
-    marginBottom: "10px",
-    color: "#0a66c2",
+    marginBottom: "20px",
   },
-
-  subtitle: {
-    textAlign: "center",
-    color: "#666",
-    marginBottom: "25px",
-    fontSize: "14px",
-  },
-
   input: {
     width: "100%",
     padding: "12px",
     marginBottom: "15px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    fontSize: "14px",
-    outline: "none",
   },
-
   button: {
     width: "100%",
     padding: "12px",
-    background: "#0a66c2",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontSize: "15px",
-    fontWeight: "600",
-  },
-
-  back: {
-    textAlign: "center",
-    marginTop: "18px",
-    color: "#0a66c2",
-    cursor: "pointer",
-    fontSize: "14px",
   },
 };

@@ -1,14 +1,46 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { forgotPassword } from "@/config/redux/action/authAction";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { BACKEND_URL } from "@/config";
 
 export default function ForgotPassword() {
-  const dispatch = useDispatch();
-
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {
-    dispatch(forgotPassword(email));
+  const handleSubmit = async () => {
+    if (!email) {
+      Swal.fire("Error", "Please enter email", "error");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const res = await axios.post(
+        `${BACKEND_URL}/forgotPassword`,
+        {
+          email,
+        }
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: res.data.message,
+      });
+
+      console.log("Reset URL:", res.data.resetUrl);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text:
+          error.response?.data?.error ||
+          "Failed to send reset link",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -22,8 +54,11 @@ export default function ForgotPassword() {
         onChange={(e) => setEmail(e.target.value)}
       />
 
+      <br />
+      <br />
+
       <button onClick={handleSubmit}>
-        Send Reset Link
+        {loading ? "Sending..." : "Send Reset Link"}
       </button>
     </div>
   );

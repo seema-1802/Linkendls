@@ -3,7 +3,7 @@ import { loginUser,registerUser,getUserProfile ,getAllUsers} from "../../action/
 import{ sendConnectionRequest,
   getMyConnectedRequests,
   getMyAcceptedConnections,
-  respondConnection,updateUserProfile,updateProfileData,googleLoginUser}from "../../action/authAction"; 
+  respondConnection,updateUserProfile,updateProfileData,googleLoginUser,forgotPassword}from "../../action/authAction"; 
 
 const authFromStorage =
   typeof window !== "undefined"
