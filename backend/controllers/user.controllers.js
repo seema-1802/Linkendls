@@ -11,7 +11,7 @@ import fetch from "node-fetch";
 import cloudinary from "../config/cloudinary.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
-
+import nodemailer from "nodemailer";
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -36,7 +36,24 @@ export const forgotPassword = async (req, res) => {
     `https://linkendls.vercel.app/reset-password/${resetToken}`;
 
   console.log(resetUrl);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
+await transporter.sendMail({
+  from: process.env.EMAIL_USER,
+  to: email,
+  subject: "Password Reset",
+  html: `
+    <h3>Reset Your Password</h3>
+    <p>Click the link below:</p>
+    <a href="${resetUrl}">${resetUrl}</a>
+  `,
+});
   res.json({
     message: "Reset link generated",
     resetUrl,
