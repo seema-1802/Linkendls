@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import {registerUser,login,uploadProfileImage,updateUserProfile,getUserWithProfile, getAllUserProfile,generateResume,updateProfileData, sendConnectedRequest, getMyConnectedRequests,  getMyAcceptedConnections, respondConnection,getUserByName,googleLogin } from "../controllers/user.controllers.js"
+import {registerUser,login,uploadProfileImage,updateUserProfile,getUserWithProfile, getAllUserProfile,generateResume,updateProfileData, sendConnectedRequest, getMyConnectedRequests,  getMyAcceptedConnections, respondConnection,getUserByName,googleLogin ,forgotPassword,resetPassword} from "../controllers/user.controllers.js"
 import multer from 'multer';
 import fs from "fs";
 import cloudinary from "../config/cloudinary.js";
