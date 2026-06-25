@@ -193,7 +193,7 @@ await profile.save();
 export const login = (req, res, next) => {
   const { Email, Password } = req.body;
 
-
+console.log("LOGIN BODY:", req.body);
   if (!Email || !Password) {
     return res.status(400).json({ error: "Email and password are required" });
   }
