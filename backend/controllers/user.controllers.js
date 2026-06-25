@@ -68,6 +68,7 @@ export const forgotPassword = async (req, res) => {
   }
 };
 export const resetPassword = async (req, res) => {
+  try {
   const { token } = req.params;
   const { password } = req.body;
 
@@ -84,8 +85,8 @@ export const resetPassword = async (req, res) => {
     });
   }
 
-  user.Password = password;
-
+  //user.Password = password;
+await user.setPassword(password);
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
 
@@ -94,6 +95,14 @@ export const resetPassword = async (req, res) => {
   res.json({
     message: "Password updated",
   });
+   } catch (err) {
+    console.error("RESET PASSWORD ERROR:", err);
+
+    return res.status(500).json({
+      error: err.message,
+    });
+  }
+
 };
 export const googleLogin = async (req, res) => {
   try {
