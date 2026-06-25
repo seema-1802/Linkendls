@@ -54,6 +54,7 @@ await transporter.sendMail({
     <a href="${resetUrl}">${resetUrl}</a>
   `,
 });
+console.log("Email sent:", info.response);
   res.json({
     message: "Reset link generated",
     resetUrl,
