@@ -13,52 +13,59 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 export const forgotPassword = async (req, res) => {
-  const { email } = req.body;
+  try {
+    const { email } = req.body;
 
-  const user = await User.findOne({ Email: email });
+    console.log("Forgot password called:", email);
 
-  if (!user) {
-    return res.status(404).json({
-      error: "User not found",
+    const user = await User.findOne({ Email: email });
+
+    if (!user) {
+      return res.status(404).json({
+        error: "User not found",
+      });
+    }
+
+    const resetToken = crypto.randomBytes(32).toString("hex");
+
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+
+    await user.save();
+
+    const resetUrl = `https://linkendls.vercel.app/reset-password/${resetToken}`;
+
+    console.log(resetUrl);
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Password Reset",
+      html: `<a href="${resetUrl}">${resetUrl}</a>`,
+    });
+
+    console.log("MAIL SENT:", info.response);
+
+    return res.json({
+      message: "Reset link generated",
+      resetUrl,
+    });
+
+  } catch (err) {
+    console.error("FORGOT PASSWORD ERROR:", err);
+
+    return res.status(500).json({
+      error: err.message,
     });
   }
-
-  const resetToken = crypto.randomBytes(32).toString("hex");
-
-  user.resetPasswordToken = resetToken;
-
-  user.resetPasswordExpire =
-    Date.now() + 15 * 60 * 1000;
-
-  await user.save();
-
-  const resetUrl =
-    `https://linkendls.vercel.app/reset-password/${resetToken}`;
-
-  console.log(resetUrl);
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-
-await transporter.sendMail({
-  from: process.env.EMAIL_USER,
-  to: email,
-  subject: "Password Reset",
-  html: `
-    <h3>Reset Your Password</h3>
-    <p>Click the link below:</p>
-    <a href="${resetUrl}">${resetUrl}</a>
-  `,
-});
-console.log("Email sent:", info.response);
-  res.json({
-    message: "Reset link generated",
-    resetUrl,
-  });
 };
 export const resetPassword = async (req, res) => {
   const { token } = req.params;
