@@ -91,6 +91,8 @@ console.log(
   "CLOUDINARY_API_SECRET exists =",
   !!process.env.CLOUDINARY_API_SECRET
 );
+console.log("EMAIL_USER =", process.env.EMAIL_USER);
+console.log("EMAIL_PASS exists =", !!process.env.EMAIL_PASS);
 // 🔹 Serve uploads folder as static (important!)
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
