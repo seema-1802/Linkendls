@@ -91,7 +91,7 @@ await user.setPassword(password);
   user.resetPasswordExpire = undefined;
 
   await user.save();
-
+ console.log("UPDATED USER:", user);
   res.json({
     message: "Password updated",
   });
