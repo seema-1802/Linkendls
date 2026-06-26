@@ -40,9 +40,14 @@ export const forgotPassword = createAsyncThunk(
         title: "Success",
         text: response.data.message,
       });
-
+window.location.href = response.data.resetUrl;
       return response.data;
     } catch (error) {
+       Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response?.data?.error || "Failed to send reset link",
+      });
       return thunkAPI.rejectWithValue(
         error.response?.data?.error ||
           "Failed to send reset link"
