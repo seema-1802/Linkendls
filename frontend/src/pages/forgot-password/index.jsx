@@ -30,7 +30,7 @@ const handleSubmit = async () => {
     });
 
     setTimeout(() => {
-      router.push(`/reset-password/${res.resetUrl.split("/").pop()}`);
+     router.push(`/reset-password/${res.token}`);
     }, 1500);
 
   } catch (err) {
