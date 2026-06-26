@@ -57,6 +57,7 @@ export const forgotPassword = async (req, res) => {
     return res.json({
       message: "Reset link generated",
       resetUrl,
+      token: resetToken,
     });
 
   } catch (err) {
