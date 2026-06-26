@@ -25,7 +25,7 @@ const handleSubmit = async () => {
     title: "Success",
     text: result.message,
   });
-
+console.log("Redirecting to:", result.resetUrl);
   window.location.href = result.resetUrl;
 
 } catch (err) {

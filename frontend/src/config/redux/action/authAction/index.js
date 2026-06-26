@@ -36,12 +36,7 @@ export const forgotPassword = createAsyncThunk(
       );
 console.log("Reset it me URL:", response.data.resetUrl);
 
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: response.data.message,
-      });
-window.location.href = response.data.resetUrl;
+     
       return response.data;
     } catch (error) {
        Swal.fire({
