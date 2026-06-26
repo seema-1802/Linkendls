@@ -16,12 +16,22 @@ const handleSubmit = async () => {
   }
 
    try {
-      setLoading(true);
-      await dispatch(forgotPassword(email)).unwrap();
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
+  setLoading(true);
+
+  const result = await dispatch(forgotPassword(email)).unwrap();
+
+  await Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: result.message,
+  });
+
+  window.location.href = result.resetUrl;
+
+} catch (err) {
+  console.log(err);
+} finally {
+  setLoading(false);
 }
  };
 
