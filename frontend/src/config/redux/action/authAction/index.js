@@ -34,7 +34,7 @@ export const forgotPassword = createAsyncThunk(
         "/forgotPassword",
         { email }
       );
-console.log("Reset URL:", response.data.resetUrl);
+console.log("Reset it me URL:", response.data.resetUrl);
 
       Swal.fire({
         icon: "success",
