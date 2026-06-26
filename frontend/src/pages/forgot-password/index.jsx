@@ -2,6 +2,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
   import { useDispatch } from "react-redux";
 import { forgotPassword } from "@/redux/authThunk";
+import { useRouter } from "next/router";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -9,30 +10,34 @@ export default function ForgotPassword() {
 
 const dispatch = useDispatch();
 
+const router = useRouter();
+
 const handleSubmit = async () => {
   if (!email) {
     Swal.fire("Error", "Please enter email", "error");
     return;
   }
 
-   try {
-  setLoading(true);
+  try {
+    setLoading(true);
 
-  const result = await dispatch(forgotPassword(email)).unwrap();
+    const res = await dispatch(forgotPassword(email)).unwrap();
 
-  await Swal.fire({
-    icon: "success",
-    title: "Success",
-    text: result.message,
-  });
-console.log("Redirecting to:", result.resetUrl);
-  window.location.href = result.resetUrl;
+    Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: res.message,
+    });
 
-} catch (err) {
-  console.log(err);
-} finally {
-  setLoading(false);
-}
+    setTimeout(() => {
+      router.push(`/reset-password/${res.resetUrl.split("/").pop()}`);
+    }, 1500);
+
+  } catch (err) {
+    Swal.fire("Error", err, "error");
+  } finally {
+    setLoading(false);
+  }
  };
 
   return (
