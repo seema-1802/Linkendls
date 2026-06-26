@@ -34,13 +34,15 @@ export const forgotPassword = createAsyncThunk(
         "/forgotPassword",
         { email }
       );
+console.log("Reset URL:", response.data.resetUrl);
+     Swal.fire({
+  icon: "success",
+  title: "Success",
+  text: response.data.message,
+}).then(() => {
 
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: response.data.message,
-      });
-window.location.href = response.data.resetUrl;
+  window.location.href = response.data.resetUrl;
+});
       return response.data;
     } catch (error) {
        Swal.fire({
