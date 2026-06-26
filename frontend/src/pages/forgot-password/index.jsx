@@ -22,11 +22,7 @@ const handleSubmit = async () => {
     setLoading(true);
 
     const res = await dispatch(forgotPassword(email)).unwrap();
-console.log("Token:", res.token);
 
-const result = await router.push(`/reset-password/${res.token}`);
-
-console.log("Router Result:", result);
     Swal.fire({
       icon: "success",
       title: "Success",
