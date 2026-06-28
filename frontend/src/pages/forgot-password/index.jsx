@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
-  import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { forgotPassword } from "@/redux/authThunk";
 import { useRouter } from "next/router";
 
@@ -8,37 +8,39 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-const router = useRouter();
+  const handleSubmit = async () => {
+    if (!email) {
+      Swal.fire("Error", "Please enter email", "error");
+      return;
+    }
 
-const handleSubmit = async () => {
-  if (!email) {
-    Swal.fire("Error", "Please enter email", "error");
-    return;
-  }
+    try {
+      setLoading(true);
 
-  try {
-    setLoading(true);
+      const res = await dispatch(forgotPassword(email)).unwrap();
 
-    const res = await dispatch(forgotPassword(email)).unwrap();
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: res.message,
+      });
 
-    Swal.fire({
-      icon: "success",
-      title: "Success",
-      text: res.message,
-    });
-
-    setTimeout(() => {
-     router.push(`/reset-password/${res.token}`);
-    }, 1500);
-
-  } catch (err) {
-    Swal.fire("Error", err, "error");
-  } finally {
-    setLoading(false);
-  }
- };
+      setTimeout(() => {
+        router.push(`/reset-password/${res.token}`);
+      }, 1500);
+    } catch (err) {
+      Swal.fire(
+        "Error",
+        err?.message || "Something went wrong",
+        "error"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -75,22 +77,24 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#f5f7fb",
+    background: "linear-gradient(135deg, #4f46e5, #2563eb)",
+    padding: "20px",
   },
 
   card: {
     width: "400px",
-    padding: "35px",
     background: "#fff",
-    borderRadius: "12px",
-    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+    padding: "35px",
+    borderRadius: "15px",
+    boxShadow: "0 15px 35px rgba(0,0,0,0.15)",
   },
 
   title: {
     textAlign: "center",
     marginBottom: "10px",
     fontSize: "28px",
-    fontWeight: "600",
+    fontWeight: "700",
+    color: "#222",
   },
 
   subtitle: {
@@ -98,6 +102,7 @@ const styles = {
     color: "#666",
     fontSize: "14px",
     marginBottom: "25px",
+    lineHeight: "20px",
   },
 
   input: {
