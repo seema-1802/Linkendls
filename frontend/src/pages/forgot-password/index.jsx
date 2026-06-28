@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
   import { useDispatch } from "react-redux";
-import { forgotPassword } from "@/redux/authThunk";
+import { forgotPassword } from "@/config/redux/action/authAction";
 import { useRouter } from "next/router";
 
 export default function ForgotPassword() {
