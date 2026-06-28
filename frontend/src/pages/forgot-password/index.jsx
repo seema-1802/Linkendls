@@ -12,8 +12,12 @@ export default function ForgotPassword() {
   const router = useRouter();
 
   const handleSubmit = async () => {
-    if (!email) {
-      Swal.fire("Error", "Please enter email", "error");
+    if (!email.trim()) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please enter your email.",
+      });
       return;
     }
 
@@ -32,11 +36,11 @@ export default function ForgotPassword() {
         router.push(`/reset-password/${res.token}`);
       }, 1500);
     } catch (err) {
-      Swal.fire(
-        "Error",
-        err?.message || "Something went wrong",
-        "error"
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: err?.message || "Something went wrong.",
+      });
     } finally {
       setLoading(false);
     }
@@ -82,17 +86,18 @@ const styles = {
   },
 
   card: {
-    width: "400px",
+    width: "100%",
+    maxWidth: "420px",
     background: "#fff",
     padding: "35px",
-    borderRadius: "15px",
+    borderRadius: "16px",
     boxShadow: "0 15px 35px rgba(0,0,0,0.15)",
   },
 
   title: {
     textAlign: "center",
     marginBottom: "10px",
-    fontSize: "28px",
+    fontSize: "30px",
     fontWeight: "700",
     color: "#222",
   },
@@ -102,12 +107,12 @@ const styles = {
     color: "#666",
     fontSize: "14px",
     marginBottom: "25px",
-    lineHeight: "20px",
+    lineHeight: "22px",
   },
 
   input: {
     width: "100%",
-    padding: "12px",
+    padding: "14px",
     marginBottom: "20px",
     border: "1px solid #ddd",
     borderRadius: "8px",
@@ -118,7 +123,7 @@ const styles = {
 
   button: {
     width: "100%",
-    padding: "12px",
+    padding: "14px",
     background: "#2563eb",
     color: "#fff",
     border: "none",
