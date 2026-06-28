@@ -34,12 +34,6 @@ export const forgotPassword = createAsyncThunk(
         "/forgotPassword",
         { email }
       );
-console.log("Reset it me URL:", response.data.resetUrl);
-
-      console.log("FULL RESPONSE:", response);
-      console.log("DATA:", response.data);
-      console.log("RESET URL:", response.data.resetUrl);
-
       window.location.href = response.data.resetUrl;
       return response.data;
     } catch (error) {
