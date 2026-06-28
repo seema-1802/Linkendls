@@ -70,6 +70,9 @@ export default function ResetPassword() {
         <h1 style={styles.title}>
           Reset Password
         </h1>
+<p style={styles.subtitle}>
+  Create a new password for your account. Make sure it is strong and easy to remember.
+</p>
 
         <input
           type="password"
@@ -111,24 +114,55 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    background: "linear-gradient(135deg, #4f46e5, #2563eb)",
+    padding: "20px",
   },
+
   card: {
-    width: "400px",
-    padding: "30px",
-    border: "1px solid #ddd",
-    borderRadius: "10px",
+    width: "100%",
+    maxWidth: "420px",
+    background: "#fff",
+    padding: "35px",
+    borderRadius: "16px",
+    boxShadow: "0 15px 35px rgba(0,0,0,0.15)",
   },
+
   title: {
     textAlign: "center",
-    marginBottom: "20px",
+    marginBottom: "10px",
+    fontSize: "30px",
+    fontWeight: "700",
+    color: "#222",
   },
+
+  subtitle: {
+    textAlign: "center",
+    color: "#666",
+    fontSize: "14px",
+    marginBottom: "25px",
+    lineHeight: "22px",
+  },
+
   input: {
     width: "100%",
-    padding: "12px",
-    marginBottom: "15px",
+    padding: "14px",
+    marginBottom: "18px",
+    border: "1px solid #ddd",
+    borderRadius: "8px",
+    outline: "none",
+    fontSize: "15px",
+    boxSizing: "border-box",
   },
+
   button: {
     width: "100%",
-    padding: "12px",
+    padding: "14px",
+    background: "#2563eb",
+    color: "#fff",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontSize: "16px",
+    fontWeight: "600",
   },
 };
